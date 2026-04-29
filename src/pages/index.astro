@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Search from '../components/Search.astro';
+import PostCard from '../components/PostCard.astro';
+
+const posts = (await getCollection('posts'))
+	.filter(post => !post.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="MD Manager - Home">
+	<Header />
+	<main>
+		<section class="mb-12">
+			<h1 class="text-4xl font-extrabold mb-4 tracking-tight">Markdown Archive</h1>
+			<p class="text-lg text-slate-600 dark:text-slate-400">
+				ナレッジベースへようこそ。フリーワード検索とタグで情報を管理します。
+			</p>
+		</section>
+
+		<Search />
+
+		<section>
+			<h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+				Recent Posts
+				<span class="text-sm font-normal text-slate-400">({posts.length})</span>
+			</h2>
+			<div class="grid gap-6">
+				{posts.map(post => <PostCard post={post} />)}
+			</div>
+			{posts.length === 0 && (
+				<div class="p-12 text-center rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800">
+					<p class="text-slate-400">記事がまだありません。src/content/posts に Markdown を追加してください。</p>
+				</div>
+			)}
+		</section>
+	</main>
+</BaseLayout>

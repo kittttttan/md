@@ -1,0 +1,29 @@
+---
+import '@pagefind/default-ui/css/ui.css';
+---
+
+<div id="search" class="mb-8"></div>
+
+<script>
+    import { PagefindUI } from "@pagefind/default-ui";
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ 
+            element: "#search", 
+            showSubResults: true,
+            translations: {
+                placeholder: "記事を検索..."
+            }
+        });
+    });
+</script>
+
+<style is:global>
+    @reference "../styles/global.css";
+    /* Adjusting Pagefind UI to be simpler */
+    .pagefind-ui .pagefind-ui__search-input {
+        @apply rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:ring-2 ring-blue-500 transition-all;
+    }
+    .pagefind-ui .pagefind-ui__result-link {
+        @apply text-blue-600 dark:text-blue-400 font-semibold;
+    }
+</style>

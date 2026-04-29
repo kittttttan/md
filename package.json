@@ -1,0 +1,28 @@
+{
+  "name": "md",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "postbuild": "pagefind --site dist",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@lucide/astro": "^1.14.0",
+    "@pagefind/default-ui": "^1.5.2",
+    "@tailwindcss/postcss": "^4.2.4",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.1.10",
+    "pagefind": "^1.5.2",
+    "postcss": "^8.5.12",
+    "tailwindcss": "^4.2.4",
+    "typescript": "^6.0.3"
+  }
+}

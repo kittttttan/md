@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import TagBadge from './TagBadge.astro';
+
+interface Props {
+	post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, tags } = post.data;
+---
+
+<article class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-600 transition-all group">
+	<a href={`/posts/${post.id}`} class="block mb-4">
+		<h2 class="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+			{title}
+		</h2>
+		<p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2">
+			{description}
+		</p>
+	</a>
+	<div class="flex justify-between items-center">
+		<div class="flex gap-2">
+			{tags.map(tag => <TagBadge tag={tag} />)}
+		</div>
+		<time datetime={pubDate.toISOString()} class="text-xs text-slate-400">
+			{pubDate.toLocaleDateString('ja-JP')}
+		</time>
+	</div>
+</article>
