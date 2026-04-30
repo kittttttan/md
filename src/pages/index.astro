@@ -8,6 +8,8 @@ import PostCard from '../components/PostCard.astro';
 const posts = (await getCollection('posts'))
 	.filter(post => !post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const latestPosts = posts.slice(0, 10);
 ---
 
 <BaseLayout title="MD Manager - Home">
@@ -28,8 +30,21 @@ const posts = (await getCollection('posts'))
 				<span class="text-sm font-normal text-slate-400">({posts.length})</span>
 			</h2>
 			<div class="grid gap-6">
-				{posts.map(post => <PostCard post={post} />)}
+				{latestPosts.map(post => <PostCard post={post} />)}
 			</div>
+			
+			{posts.length > 10 && (
+				<div class="mt-10 text-center">
+					<a
+						href="/posts/1"
+						class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:scale-105 transition-transform"
+					>
+						全ての記事を見る
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+					</a>
+				</div>
+			)}
+
 			{posts.length === 0 && (
 				<div class="p-12 text-center rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800">
 					<p class="text-slate-400">記事がまだありません。src/content/posts に Markdown を追加してください。</p>

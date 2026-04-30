@@ -1,0 +1,46 @@
+---
+import { ChevronLeft, ChevronRight } from '@lucide/astro';
+import type { Page } from 'astro';
+
+interface Props {
+	page: Page;
+}
+
+const { page } = Astro.props;
+---
+
+<nav class="flex justify-center items-center gap-4 mt-12" aria-label="Pagination">
+	{page.url.prev ? (
+		<a
+			href={page.url.prev}
+			class="inline-flex items-center gap-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors text-sm font-medium"
+		>
+			<ChevronLeft size={18} />
+			Previous
+		</a>
+	) : (
+		<span class="inline-flex items-center gap-1 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-900 text-slate-300 dark:text-slate-700 text-sm font-medium cursor-not-allowed">
+			<ChevronLeft size={18} />
+			Previous
+		</span>
+	)}
+
+	<span class="text-sm font-medium text-slate-600 dark:text-slate-400">
+		Page {page.currentPage} of {page.lastPage}
+	</span>
+
+	{page.url.next ? (
+		<a
+			href={page.url.next}
+			class="inline-flex items-center gap-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors text-sm font-medium"
+		>
+			Next
+			<ChevronRight size={18} />
+		</a>
+	) : (
+		<span class="inline-flex items-center gap-1 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-900 text-slate-300 dark:text-slate-700 text-sm font-medium cursor-not-allowed">
+			Next
+			<ChevronRight size={18} />
+		</span>
+	)}
+</nav>

@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPathsOptions } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import PostCard from '../../../components/PostCard.astro';
+import Pagination from '../../../components/Pagination.astro';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+	const posts = (await getCollection('posts'))
+		.filter(post => !post.data.draft)
+		.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+	
+	const tags = [...new Set(posts.flatMap(post => post.data.tags))];
+	
+	return tags.flatMap(tag => {
+		const filteredPosts = posts.filter(post => post.data.tags.includes(tag));
+		return paginate(filteredPosts, {
+			params: { tag },
+			pageSize: 20,
+		});
+	});
+}
+
+const { tag } = Astro.params;
+const { page } = Astro.props;
+---
+
+<BaseLayout title={`Tag: #${tag} - Page ${page.currentPage} - MD Manager`}>
+	<Header />
+	<main>
+		<div class="mb-8">
+			<a href="/tags" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">← All Tags</a>
+			<h1 class="text-3xl font-bold mt-4 tracking-tight">
+				Tag: <span class="text-blue-600 dark:text-blue-400">#{tag}</span>
+				<span class="text-sm font-normal text-slate-400 ml-2">({page.total} posts)</span>
+			</h1>
+		</div>
+		
+		<section>
+			<div class="grid gap-6">
+				{page.data.map(post => <PostCard post={post} />)}
+			</div>
+
+			<Pagination page={page} />
+		</section>
+	</main>
+</BaseLayout>
