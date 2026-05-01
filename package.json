@@ -20,9 +20,10 @@
     "@tailwindcss/postcss": "^4.2.4",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.4",
-    "astro": "^6.2.0",
+    "astro": "^6.2.1",
     "pagefind": "^1.5.2",
-    "postcss": "^8.5.12",
+    "postcss": "^8.5.13",
+    "rehype-external-links": "^3.0.0",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3"
   }
