@@ -73,3 +73,6 @@ Previews the production build locally.
 ### Markdown Processing
 - We use the default Rust-powered **Sätteri** Markdown processor introduced in Astro 7.
 - External links are automatically formatted (adding `target="_blank"`, `rel="noopener noreferrer"`, and a `🔗` icon suffix) via a custom HAST plugin (`satteriExternalLinksPlugin`) in `astro.config.mjs`. Do not apply these properties manually or install legacy `rehype` plugins.
+
+### Verification & Quality Control
+- **Always run lint and build:** Before finalizing any task or presenting code changes, you must run both `pnpm lint` (type checking) and `pnpm build` (production build) to ensure there are no errors or warnings.

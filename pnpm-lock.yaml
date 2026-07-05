@@ -50,6 +50,10 @@ importers:
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
+    devDependencies:
+      satteri:
+        specifier: ^0.9.4
+        version: 0.9.4
 
 packages:
 
